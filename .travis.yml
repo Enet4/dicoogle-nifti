@@ -1,0 +1,10 @@
+language: java
+dist: trusty
+sudo: false
+matrix:
+  include:
+    - jdk: oraclejdk8
+    - jdk: openjdk8
+    - jdk: oraclejdk9
+script:
+ - mvn -B license:check test package
