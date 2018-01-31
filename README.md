@@ -56,6 +56,10 @@ The server expects either an entity containing the full data of the NIFTI file o
 compression. If any of the files is compressed, the content type must mention that it is
 so ("application/gzip").
 
+The name of each file, without the extension, will be used as the series' description.
+If the given file name is of the format `«an»_«rest_of_filename»` (with or without the
+".nii.gz" extension), then the series' accession number `«an»` will be included as well. 
+
 Additional parameters can be included via query strings:
 
   - _modality_ : specifies the Modality attribute as well as additional attributes for

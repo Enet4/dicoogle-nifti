@@ -232,7 +232,7 @@ public class NIFTIConvertWebServlet  extends HttpServlet implements PlatformComm
 
         obj.putString(Tag.SeriesDescription, VR.LO, filename);
         int n = filename.indexOf("_");
-        if (n != 1) {
+        if (n != -1) {
             if (n > 16) {
                 n = 16;
             }
