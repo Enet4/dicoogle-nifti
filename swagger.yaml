@@ -1,0 +1,106 @@
+swagger: "2.0"
+info:
+  description: "Web services of the dicoogle-nifti, which converts NIfTI-1 files to DICOM for storage"
+  version: "1.0.0"
+  title: "dicoogle-nifti"
+  contact:
+    email: "eduardopinho@ua.pt"
+  license:
+    name: "AGPLv3"
+    url: "https://www.gnu.org/licenses/agpl-3.0.en.html"
+basePath: "/nifti"
+tags:
+- name: "convert"
+schemes:
+- "http"
+paths:
+  /convert:
+    post:
+      tags:
+      - "convert"
+      summary: "Convert and store the NIFTI files contained in the HTTP request. The server expects either an entity containing the full data of the NIFTI file or a multipart/form-data entity containing one or more NIFTI-1 files, with or without GZip compression. If any of the files is compressed, the content type must mention that it is so (\"application/gzip\")."
+      description: ""
+      operationId: "convert"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "formData"
+        description: "The NIfTI-1 file to be converted"
+        required: true
+        type: "file"
+      - name: "modality"
+        in: "query"
+        description: "The imaging modality of the given volume"
+        required: true
+        type: "string"
+#        schema:
+#          type: "string"
+#          enum:
+#           - "CT"
+#           - "MR"
+      - name: "patientName"
+        in: "query"
+        description: "A value for the DICOM Patient Name attribute"
+        type: "string"
+        required: false
+        default: "Patient^Anonymous"
+      - name: "patientID"
+        in: "query"
+        description: "A value for the DICOM Patient ID attribute, defaults to a random UUID"
+        type: "string"
+        required: false
+      - name: "institutionName"
+        in: "query"
+        description: "A value for the DICOM Institution Name attribute"
+        type: "string"
+        required: false
+      - name: "manufacturer"
+        in: "query"
+        description: "A value for the DICOM Manufacturer attribute"
+        type: "string"
+        required: false
+      - name: "bodyPart"
+        in: "query"
+        description: "A value for the DICOM Examined Body Part attribute"
+        type: "string"
+        required: false
+      responses:
+        200:
+          description: "Conversion successful"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "COMPLETED"
+              nNiftiFiles:
+                type: "array"
+                items:
+                  $ref: "#/definitions/uri"
+              dcmFiles:
+                type: "array"
+                items:
+                  type: "string"
+        400:
+          description: "error"
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "error"
+              message:
+                type: "string"
+
+definitions:
+  uri:
+    description: "A DICOM object URI"
+    type: "string"
+    pattern: "[a-z0-9+.-]+:(\/.*)+"
+
+externalDocs:
+  description: "Please read our learning pack for the developer guide"
+  url: "http://bioinformatics-ua.github.io/dicoogle-learning-pack"
