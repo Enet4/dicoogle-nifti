@@ -76,8 +76,8 @@ public class NIFTIConvertWebServlet  extends HttpServlet implements PlatformComm
     protected void doGet(HttpServletRequest req, HttpServletResponse response)
                     throws ServletException, IOException {
         response.setStatus(405);
-        response.setHeader("Content-Type", "text/plain");
-        response.getWriter().println("Please use POST to upload nifti files");
+        response.setHeader("Content-Type", "text/plain; charset=UTF-8");
+        response.getWriter().println("⚠ Please use POST to upload nifti files");
     }
     
     @Override
@@ -92,7 +92,7 @@ public class NIFTIConvertWebServlet  extends HttpServlet implements PlatformComm
 
         Stream<NiftiFileEntry<InputStream>> niftiObjects;
         int nFiles;
-        resp.setContentType("application/json");
+        resp.setContentType("application/json; charset=UTF-8");
         if (req.getContentType() == null) {
             JSONObject reply = new JSONObject();
             reply.put("error", "no content");
