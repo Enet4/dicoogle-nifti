@@ -1,7 +1,7 @@
 Dicoogle NIFTI converter
 ========================
 
-[![Build Status](https://travis-ci.org/Enet4/dicoogle-nifti.svg?branch=master)](https://travis-ci.org/Enet4/dicoogle-nifti)
+[![Java CI with Maven](https://github.com/Enet4/dicoogle-nifti/actions/workflows/maven.yml/badge.svg)](https://github.com/Enet4/dicoogle-nifti/actions/workflows/maven.yml)
 
 This plugin for Dicoogle allows for the upload and automatic storage of
 NIFTI-1 files, a format defined by the Neuroimaging Informatics Technology 
