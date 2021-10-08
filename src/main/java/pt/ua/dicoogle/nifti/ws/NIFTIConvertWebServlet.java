@@ -28,7 +28,6 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.UnaryOperator;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
@@ -38,7 +37,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import net.sf.json.JSONObject;
-import org.apache.commons.lang3.tuple.Pair;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
 import org.dcm4che2.data.VR;
@@ -77,7 +75,9 @@ public class NIFTIConvertWebServlet  extends HttpServlet implements PlatformComm
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse response)
                     throws ServletException, IOException {
-        response.setStatus(418, "I'm a teapot");
+        response.setStatus(405);
+        response.setHeader("Content-Type", "text/plain");
+        response.getWriter().println("Please use POST to upload nifti files");
     }
     
     @Override
