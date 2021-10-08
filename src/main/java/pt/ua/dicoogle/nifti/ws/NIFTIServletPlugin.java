@@ -22,8 +22,6 @@ import javax.servlet.MultipartConfigElement;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import pt.ua.dicoogle.sdk.JettyPluginInterface;
 import pt.ua.dicoogle.sdk.core.DicooglePlatformInterface;
@@ -35,13 +33,10 @@ import pt.ua.dicoogle.sdk.settings.ConfigurationHolder;
  * @author Luís A. Bastião Silva - <bastiao@ua.pt>
  */
 public class NIFTIServletPlugin implements JettyPluginInterface, PlatformCommunicatorInterface {
-    private static final Logger logger = LoggerFactory.getLogger(NIFTIServletPlugin.class);
-    
     private static final String NIFTI_FILE_PATH = System.getProperty("java.io.tmpdir");
 
     private boolean enabled;
     private ConfigurationHolder settings;
-    private DicooglePlatformInterface platform;
     private final NIFTIConvertWebServlet wsConvert;
     
     public NIFTIServletPlugin() {
@@ -51,7 +46,6 @@ public class NIFTIServletPlugin implements JettyPluginInterface, PlatformCommuni
 
     @Override
     public void setPlatformProxy(DicooglePlatformInterface pi) {
-        this.platform = pi;
         // since web service is not a plugin interface, the platform interface must be provided manually
         this.wsConvert.setPlatformProxy(pi);
     }
@@ -101,20 +95,8 @@ public class NIFTIServletPlugin implements JettyPluginInterface, PlatformCommuni
         convertServletHolder.getRegistration().setMultipartConfig(new MultipartConfigElement(NIFTI_FILE_PATH));
         handler.addServlet(convertServletHolder, "/convert");
 
-//        URL url = NIFTIServletPlugin.class.getResource("/WEBAPP");
-//        logger.debug("Retrieving web app from \"{}\"", url);
-//        String directoryToServeAssets = url.toString();
-//        
-//        final WebAppContext webpages = new WebAppContext(directoryToServeAssets, "/dashboardSample");
-//        webpages.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "true"); // disables directory listing
-//        webpages.setInitParameter("useFileMappedBuffer", "false");
-//        webpages.setInitParameter("cacheControl", "max-age=0, public");
-//
-//        webpages.setWelcomeFiles(new String[]{"index.html"});
-
         HandlerList l = new HandlerList();
         l.addHandler(handler);
-        //l.addHandler(webpages);
 
         return l;
     }

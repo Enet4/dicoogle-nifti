@@ -23,16 +23,11 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
-import org.restlet.resource.ServerResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pt.ua.dicoogle.nifti.config.NIFTIPluginSettings;
-import pt.ua.dicoogle.sdk.GraphicalInterface;
-import pt.ua.dicoogle.sdk.IndexerInterface;
 import pt.ua.dicoogle.sdk.JettyPluginInterface;
 import pt.ua.dicoogle.sdk.PluginSet;
-import pt.ua.dicoogle.sdk.QueryInterface;
-import pt.ua.dicoogle.sdk.StorageInterface;
 import pt.ua.dicoogle.sdk.settings.ConfigurationHolder;
 
 /** The main plugin set.
@@ -60,16 +55,6 @@ public class NIFTIPluginSet implements PluginSet {
         
         logger.info("NIFTI Plugin Set is ready");
     }
-
-    @Override
-    public Collection<IndexerInterface> getIndexPlugins() {
-        return Collections.EMPTY_LIST;
-    }
-
-    @Override
-    public Collection<QueryInterface> getQueryPlugins() {
-        return Collections.EMPTY_LIST;
-    }
     
     /** This method is used to retrieve a name for identifying the plugin set. Keep it as a constant value.
      * 
@@ -78,11 +63,6 @@ public class NIFTIPluginSet implements PluginSet {
     @Override
     public String getName() {
         return "NIFTI";
-    }
-
-    @Override
-    public Collection<ServerResource> getRestPlugins() {
-        return Collections.EMPTY_LIST;
     }
 
     @Override
@@ -96,11 +76,6 @@ public class NIFTIPluginSet implements PluginSet {
     }
 
     @Override
-    public Collection<StorageInterface> getStoragePlugins() {
-        return Collections.EMPTY_LIST;
-    }
-
-    @Override
     public void setSettings(ConfigurationHolder xmlSettings) {
         this.settings = xmlSettings;
         NIFTIPluginSettings.INSTANCE.configure(settings);
@@ -109,11 +84,5 @@ public class NIFTIPluginSet implements PluginSet {
     @Override
     public ConfigurationHolder getSettings() {
         return this.settings;
-    }
-
-    @Override
-    public Collection<GraphicalInterface> getGraphicalPlugins() {
-        // Graphical plugins are deprecated. Do not use or provide any.
-        return Collections.EMPTY_LIST;
     }
 }
